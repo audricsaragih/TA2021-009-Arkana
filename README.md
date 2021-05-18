@@ -8,5 +8,5 @@ This repository is built for final year Electrical Engineering student's thesis 
 
 ### Authors
 * Christian Justin (13217031)
-* [Audric Kristo Saragih (13217044)](https://github.com/audricsaragih)
+* [Audric Kristo Saragih](https://github.com/audricsaragih) (13217044)
 * Lisa Margaretta (13217079)
