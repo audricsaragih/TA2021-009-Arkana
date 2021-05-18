@@ -3,5 +3,10 @@
 
 This repository is built for final year Electrical Engineering student's thesis at Bandung Institute of Technology
 
-## Source
+### Source
 * [rplidar_ros](http://wiki.ros.org/rplidar_ros) - Package for RP Lidar
+
+### Authors
+* Christian Justin (13217031)
+* [Audric Kristo Saragih (13217044)](https://github.com/audricsaragih)
+* Lisa Margaretta (13217079)
