@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+        <arg name="BASE_PWM" default="50" />
+        <arg name="MULTIPLIER_STANDARD" default="0.1" />
+        <arg name="MULTIPLIER_PIVOT" default="1.0" />
+        <arg name="simple_mode" default="true" />
+
+
+        <node   name="motor_driver_start"
+                pkg="morpheus_chair_pkg"
+                type="move_with_cmd_vel.py"
+                respawn="false"
+                output="screen"
+                args="$(arg BASE_PWM) $(arg MULTIPLIER_STANDARD) $(arg MULTIPLIER_PIVOT) $(arg simple_mode)">
+        </node>
+</launch>
