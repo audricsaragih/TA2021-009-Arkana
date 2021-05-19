@@ -1,7 +1,7 @@
 # TA2021-009-Arkana
 ## Unmanned Ground Vehicle (UGV) with SLAM and Autonomous Navigation using ROS Framework in Indoor Environment
 
-This repository is built for final year Electrical Engineering student's thesis at Bandung Institute of Technology
+This repository is built for final year Electrical Engineering student's thesis at Bandung Institute of Technology <br\>
 Every project in this repository are using Robot Operating System (ROS) Melodic Morena installed in Ubuntu 18.04 LTS
 
 ### Source
