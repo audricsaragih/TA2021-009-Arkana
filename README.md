@@ -12,6 +12,6 @@ Every project in this repository are using Robot Operating System (ROS) Melodic 
 * [navigation](https://github.com/ros-planning/navigation) - Package for Navigation
 
 ### Authors
-* Christian Justin (NIM : 13217031)
+* [Christian Justin](https://github.com/AtomicVectorize) (NIM : 13217031)
 * [Audric Kristo Saragih](https://github.com/audricsaragih) (NIM : 13217044)
 * [Lisa Margaretta](https://github.com/lisasim) (NIM : 13217079)
