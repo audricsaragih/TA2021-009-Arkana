@@ -17,7 +17,7 @@ class MotorDriver(object):
         :param wheel_distance: Distance Between wheels in meters
         :param wheel_diameter: Diameter of the wheels in meters
         """
-        ## edit : set message and publisher
+        #set message and publisher
         self.msg = Pwm()
         self.pub = rospy.Publisher('test_pwm', Pwm, queue_size=10)
 	self.testpub = rospy.Publisher('chatter', String, queue_size=10)
@@ -33,15 +33,15 @@ class MotorDriver(object):
 
         self.simple_mode = simple_mode
 
-        # Wheel and chasis dimensions
+        # set dimensi roda dan chassis
         self._wheel_distance = wheel_distance
         self._wheel_radius = wheel_diameter / 2.0
         self.MULTIPLIER_STANDARD = i_MULTIPLIER_STANDARD
         self.MULTIPLIER_PIVOT = i_MULTIPLIER_PIVOT
 
-    def set_M1M2_speed(self, rpm_speedM1, rpm_speedM2, multiplier, directions): ##edit : tambah parameter directions
-        ## edit
-        self.PWM1 = min(int(((rpm_speedM1 * multiplier) * self.BASE_PWM)*255/100), self.MAX_PWM) ##edit skala ke max 255
+    #fungsi publish nilai pwm
+    def set_M1M2_speed(self, rpm_speedM1, rpm_speedM2, multiplier, directions): #tambah parameter directions
+        self.PWM1 = min(int(((rpm_speedM1 * multiplier) * self.BASE_PWM)*255/100), self.MAX_PWM) #edit skala ke max 255
         self.PWM2 = min(int((rpm_speedM2 * multiplier * self.BASE_PWM)*255/100), self.MAX_PWM) ##edit skala ke max 255
         self.msg.directions = directions
         self.msg.pwm1 = self.PWM1
@@ -53,18 +53,20 @@ class MotorDriver(object):
 	rospy.loginfo(self.testmsg)
 	self.testpub.publish(self.testmsg)
         self.pub.publish(self.msg)
-        ##
-
+        
+    #fungsi set kecepatan motor 1
     def set_M1_speed(self, rpm_speed, multiplier, directions):
         self.PWM1 = min(int(((rpm_speed * multiplier) * self.BASE_PWM)*255/100), self.MAX_PWM) ##edit skala ke max 255
         self.p1.ChangeDutyCycle(self.PWM1)
         print("M1="+str(self.PWM1))
 
+    #fungsi set kecepatan motor 1
     def set_M2_speed(self, rpm_speed, multiplier, directions):
         self.PWM2 = min(int((rpm_speed * multiplier * self.BASE_PWM)*255/100), self.MAX_PWM) ##edit skala ke max 255
         self.p2.ChangeDutyCycle(self.PWM2)
         print("M2="+str(self.PWM2))
 
+    #fungi hitung radius perputaran body
     def calculate_body_turn_radius(self, linear_speed, angular_speed):
         if angular_speed != 0.0:
             body_turn_radius = linear_speed / angular_speed
@@ -73,6 +75,7 @@ class MotorDriver(object):
             body_turn_radius = None
         return body_turn_radius
 
+    #fungsi hitung radius perputaran roda
     def calculate_wheel_turn_radius(self, body_turn_radius, angular_speed, wheel):
 
         if body_turn_radius is not None:
@@ -89,6 +92,7 @@ class MotorDriver(object):
 
         return wheel_turn_radius
 
+    #fungsi hitung rpm roda
     def calculate_wheel_rpm(self, linear_speed, angular_speed, wheel_turn_radius):
         """
         Omega_wheel = Linear_Speed_Wheel / Wheel_Radius
@@ -107,6 +111,7 @@ class MotorDriver(object):
 
         return wheel_rpm
 
+    #fungsi menentukan arah gerak roda
     def set_wheel_movement(self, right_wheel_rpm, left_wheel_rpm):
         if right_wheel_rpm > 0.0 and left_wheel_rpm > 0.0:
             if self.simple_mode:
@@ -161,6 +166,7 @@ class MotorDriver(object):
             assert False, "A case wasn't considered==>"+str(right_wheel_rpm)+","+str(left_wheel_rpm)
             pass
 
+    #fungsi pengubahan /cmd_vel ke pergerakan roda
     def set_cmd_vel(self, linear_speed, angular_speed):
 
         body_turn_radius = self.calculate_body_turn_radius(linear_speed, angular_speed)
