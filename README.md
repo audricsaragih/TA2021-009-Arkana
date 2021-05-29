@@ -9,7 +9,7 @@ Every project in this repository are using Robot Operating System (ROS) Melodic 
 * [teleop_twist_keyboard](https://github.com/ros-teleop/teleop_twist_keyboard) - Package for moving UGV with keyboard
 * [morpheus_chair](https://bitbucket.org/theconstructcore/morpheus_chair/src/master/morpheus_chair_pkg/scripts/) - Package for Motor Driver
 * [slam_gmapping](https://github.com/ros-perception/slam_gmapping) - Package for Mapping
-* [navigation](https://github.com/ros-planning/navigation) - Package for Navigation
+* [navigation](https://github.com/ros-planning/navigation) - Package for Navigation (Navigation STack)
 
 ### Authors
 * [Christian Justin](https://github.com/AtomicVectorize) (NIM : 13217031)
