@@ -98,8 +98,6 @@ public:
   {
     //ROS_INFO("UPDATE POSE");
     pose_ptr_ = pose;
-    //image_transport_publisher_full_position_.publish(cv_img_full_with_position_.toImageMsg());
-    ROS_INFO("UNDO POSE");
   }
 
   //The map->image conversion runs every time a new map is received at the moment
@@ -120,8 +118,7 @@ public:
       return;
     }
 
-    // Only if someone is subscribed to it, do work and publish full map image
-    //if ((pose_ptr_)){
+    // EDIT : Every map callback, publish map image
       ROS_INFO("Start processing");
 
       Mat* map_mat  = &cv_img_full_.image;
@@ -210,7 +207,7 @@ public:
         image_transport_publisher_full_position_.publish(cv_img_full_with_position_.toImageMsg()); 
       
 	ROS_INFO("DONE processing");
-    //}
+    
 
     // Only if someone is subscribed to it, do work and publish tile-based map image Also check if pose_ptr_ is valid
     if ((image_transport_publisher_tile_.getNumSubscribers() > 0) && (pose_ptr_)){
