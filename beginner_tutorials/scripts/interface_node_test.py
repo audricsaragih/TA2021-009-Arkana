@@ -1,42 +1,3 @@
-#!/usr/bin/env python
-# Software License Agreement (BSD License)
-#
-# Copyright (c) 2008, Willow Garage, Inc.
-# All rights reserved.
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions
-# are met:
-#
-#  * Redistributions of source code must retain the above copyright
-#    notice, this list of conditions and the following disclaimer.
-#  * Redistributions in binary form must reproduce the above
-#    copyright notice, this list of conditions and the following
-#    disclaimer in the documentation and/or other materials provided
-#    with the distribution.
-#  * Neither the name of Willow Garage, Inc. nor the names of its
-#    contributors may be used to endorse or promote products derived
-#    from this software without specific prior written permission.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-# FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-# COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-# BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-# CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-# ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-# POSSIBILITY OF SUCH DAMAGE.
-#
-# Revision $Id$
-
-#
-# Simple talker demo that published std_msgs/Strings messages
-## to the 'chatter' topic
-
 import rospy
 import actionlib
 from std_msgs.msg import String, Int64
@@ -52,15 +13,7 @@ def callbackPose(data):
 def callbackStop(data):
     #goalpub.publish(msgfix)
     client.cancel_goal()
-    statuspub.publish(2)
-    #result = client.get_result()
-    #if result:
-    #    print('goal reached')
-    #else:
-    #    print('result: '+ str(result))
-
-    #state = client.get_state()
-    #print('state: '+ str(state))  
+    statuspub.publish(2)  
 
 def callbackMap(data):
     mappub = rospy.Publisher('map_continues', OccupancyGrid, queue_size=10)
@@ -123,7 +76,6 @@ def listener():
     rospy.Subscriber("map", OccupancyGrid, callbackMap)
     rospy.Subscriber("goal_sent", PoseStamped, callbackGoal)
 
-    #rospy.spin()
     rate = rospy.Rate(5)
     while not rospy.is_shutdown():
         posepub.publish(msgfix)
@@ -132,7 +84,6 @@ def listener():
 
 if __name__ == '__main__':
     try:
-        #talker()
         rospy.init_node('interface_node', anonymous=True)
 
         statuspub = rospy.Publisher('robot_status', Int64, queue_size=10)
