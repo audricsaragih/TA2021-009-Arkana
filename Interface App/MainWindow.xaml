@@ -1,0 +1,135 @@
+﻿<Window x:Class="TestApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:RosImageWpf="clr-namespace:ROS_ImageWPF;assembly=ROS_ImageWPF"
+        xmlns:local="clr-namespace:TestApp"
+        mc:Ignorable="d"
+        Title="Navigation And Control Application" Unloaded="Window_Unloaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Column="1" Grid.Row="1" Header="Rosbridge Connection">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="16">Rosbridge Server URI</Label>
+                <TextBox Grid.Row="1" Grid.Column="0" x:Name="URITextBox" Padding="5" Width="200" Margin="5,0,0,0"></TextBox>
+                <Label Grid.Row="1" Grid.Column="1">e.g.: ws://localhost:9090</Label>
+                <Button Grid.Row="2" Grid.Column="0" x:Name="ConnectButton" Padding="5" Width="100" HorizontalAlignment="Left" Margin="5,10,0,5" Click="ConnectButton_Click">Connect</Button>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="DestinationGroupBox" Grid.Column="1" Grid.Row="2" Header="Set Destination">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" FontSize="16">Destination Point</Label>
+
+                <Label Grid.Row="1" Grid.Column="0" FontSize="16" HorizontalAlignment="Right">X</Label>
+                <TextBox Grid.Row="1" Grid.Column="1" x:Name="Xgoal" Padding="5" Margin="0,0,10,0"></TextBox>
+                <Label Grid.Row="1" Grid.Column="2" FontSize="16" HorizontalAlignment="Right" Margin="0">Y</Label>
+                <TextBox Grid.Row="1" Grid.Column="3" x:Name="Ygoal" Padding="5" Margin="0,0,10,0"></TextBox>
+                <Label Grid.Row="1" Grid.Column="4" FontSize="16" HorizontalAlignment="Right">Z</Label>
+                <TextBox Grid.Row="1" Grid.Column="5" x:Name="Zgoal" Padding="5" Margin="0,0,10,0"></TextBox>
+
+                <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left">e.g.: 1.0</Label>
+                <Label Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left">e.g.: 1.0</Label>
+                <Label Grid.Row="2" Grid.Column="5" HorizontalAlignment="Left">e.g.: 1.0</Label>
+
+                <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" x:Name="StartButton" Padding="5" Margin="5,5,0,5" Width="100" Click="GoalPublishButton_Click">Start</Button>
+                <Button Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" x:Name="StopButton" Padding="5" Margin="5,5,0,5" Width="100" Click="StopPublishButton_Click">Stop</Button>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="BatteryGroupBox" Grid.Column="1" Grid.Row="3" Header="Power Status">
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!--<RowDefinition Height="Auto"/>-->
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Name="VoltageTextBlock" Grid.Row="0" HorizontalAlignment="Left"></TextBlock>
+                <Label Content="Not Connected" HorizontalAlignment="Stretch" FontSize="16" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Name="l" VerticalAlignment="Stretch" />
+                <!--<TextBlock x:Name="StatusTextBlock" Grid.Row="1" HorizontalAlignment="Left"></TextBlock>-->
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="MapViewGroupBox" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Header="Map Display">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!--<Image x:Name="MapViewer" Grid.Row="0" Margin="0,20,0,0"></Image>-->
+                <RosImageWpf:CompressedImageControl x:FieldModifier="public" Topic="/map_image/full_with_position/compressed" x:Name="MapImage" Grid.Row="0" Width="410" Height="294"></RosImageWpf:CompressedImageControl>
+                <!--<Label Grid.Row="1" HorizontalAlignment="Center">Current Position</Label>-->
+                <!--<Label x:Name="PositionLabel" Grid.Row="2" HorizontalAlignment="Center"></Label>-->
+                <!--<ListBox Grid.Row="2" x:Name="MessagesListBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></ListBox>-->
+                <!--<TextBlock x:Name="TestTextBlock" Grid.Row="5" HorizontalAlignment="Center"></TextBlock>-->
+                <!--<ListBox Grid.Row="5" x:Name="MessagesListBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10"/>-->
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="LocationGroupBox" Grid.Column="2" Grid.Row="3" Header="Location Coordinate">
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Name="XTextBlock" Grid.Row="0" HorizontalAlignment="Left" Text="Not Connected" FontSize="16"></TextBlock>
+                <TextBlock x:Name="YTextBlock" Grid.Row="1" HorizontalAlignment="Left" FontSize="16"></TextBlock>
+                <TextBlock x:Name="ZTextBlock" Grid.Row="2" HorizontalAlignment="Left" FontSize="16"></TextBlock>
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</Window>
